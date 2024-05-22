@@ -1,5 +1,6 @@
 package com.hmdp.utils;
 
+import com.hmdp.dto.UserDTO;
 import com.hmdp.entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
         // 5. 存在，保存用户信息到threadLocal
-        UserHolder.saveUser((User)user);
+        UserHolder.saveUser((UserDTO)user);
         // 6. 放行
         return true;
     }
