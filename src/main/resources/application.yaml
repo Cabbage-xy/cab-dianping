@@ -25,3 +25,22 @@ mybatis-plus:
 logging:
   level:
     com.hmdp: debug
+knife4j:
+  # 开启增强配置
+  enable: true
+#knife4j:
+#  enable: true
+#  openapi:
+#    title: Knife4j官方文档
+#    description: "`我是测试`,**你知道吗**
+#    # aaa"
+#    email: xiaoymin@foxmail.com
+#    concat: 八一菜刀
+#    url: https://docs.xiaominfo.com
+#    version: v4.0
+#    group:
+#      test1:
+#        group-name: 分组名称
+#        api-rule: package
+#        api-rule-resources:
+#          - com.knife4j.demo.new3
