@@ -86,11 +86,11 @@ public class CacheClient {
 
         // 4. 命中，反序列化为对象
         RedisData redisData = JSONUtil.toBean(json, RedisData.class);
-        R r = JSONUtil.toBean((JSONObject) redisData.getData(), type);
         LocalDateTime expireTime = redisData.getExpireTime();
         // 5. 判断是否过期
         if (expireTime.isAfter(LocalDateTime.now())) {
             // 5.1. 未过期，返回shop信息
+            R r = JSONUtil.toBean((JSONObject) redisData.getData(), type);
             return r;
         }
 
