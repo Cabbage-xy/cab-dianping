@@ -102,6 +102,23 @@ public class CacheClient {
         // 6.2 判断是否获取锁成功
         if (isLock) {
             // TODO: 获取锁成功应该再次检查Redis缓存是否过期，如果存在则无需重建缓存
+            json = stringRedisTemplate.opsForValue().get(key);
+            // 2. 判断是否存在
+            if (StrUtil.isBlank(json)) {
+                // 3. 不存在，直接返回空
+                return null;
+            }
+
+            // 4. 命中，反序列化为对象
+            redisData = JSONUtil.toBean(json, RedisData.class);
+            r = JSONUtil.toBean((JSONObject) redisData.getData(), type);
+            expireTime = redisData.getExpireTime();
+            // 5. 判断是否过期
+            if (expireTime.isAfter(LocalDateTime.now())) {
+                // 5.1. 未过期，返回shop信息
+                return r;
+            }
+
             // 6.3 成功，开启独立线程，实现缓存重建
             CACHE_REBUILD_EXECUTOR.submit(() -> {
                 try {
