@@ -16,20 +16,20 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginInterceptor())
-//                .excludePathPatterns(
-//                        "/user/code",
-//                        "/user/login",
-//                        "/blog/hot",
-//                        "/shop/**",
-//                        "/shop-type/**",
-//                        "/upload/**",
-//                        "/voucher/**",
-//                        "/doc**",
-//                        "/swagger**",
-//                        "/webjar**"
-//                )
-//                .order(10);
+        registry.addInterceptor(new LoginInterceptor())
+                .excludePathPatterns(
+                        "/user/code",
+                        "/user/login",
+                        "/blog/hot",
+                        "/shop/**",
+                        "/shop-type/**",
+                        "/upload/**",
+                        "/voucher/**",
+                        "/doc**",
+                        "/swagger**",
+                        "/webjar**"
+                )
+                .order(10);
 
         // 默认拦截所有路径
         registry.addInterceptor(new RefreshTokenInterceptor(stringRedisTemplate)).order(0);

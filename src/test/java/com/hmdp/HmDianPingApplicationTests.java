@@ -1,5 +1,7 @@
 package com.hmdp;
 
+import com.hmdp.dto.Result;
+import com.hmdp.service.IVoucherOrderService;
 import com.hmdp.service.impl.ShopServiceImpl;
 
 //ju4
@@ -23,15 +25,16 @@ class HmDianPingApplicationTests {
     @Resource
     private ShopServiceImpl shopService;
 
+    @Test
+    void testSaveShop() throws InterruptedException {
+        shopService.saveShop2Redis(1L, 10L);
+    }
+
     @Resource
     private RedisIdWorker redisIdWorker;
 
     private ExecutorService es = Executors.newFixedThreadPool(500);
 
-    @Test
-    void testSaveShop() throws InterruptedException {
-        shopService.saveShop2Redis(1L, 10L);
-    }
     @Test
     void testIdWorker() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(300);
@@ -49,5 +52,14 @@ class HmDianPingApplicationTests {
         latch.await();
         long end = System.currentTimeMillis();
         System.out.println("time = " + (end - begin));
+    }
+
+    @Resource
+    private IVoucherOrderService voucherOrderService;
+
+    @Test
+    void seckill() {
+        Result result = voucherOrderService.seckillVoucher(2L);
+        System.out.println("result = " + result);
     }
 }
